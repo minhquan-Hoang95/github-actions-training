@@ -65,6 +65,8 @@ jobs:
     with:
       base64-subjects: "${{ needs.build.outputs.hashes }}"
       upload-assets: true
+      # Autoriser les repos privés (le nom sera exposé dans le transparency log)
+      private-repository: true
 
   # Job 3: Créer la release GitHub
   release:
