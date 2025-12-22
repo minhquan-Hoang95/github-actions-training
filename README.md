@@ -1,5 +1,8 @@
 # TP GitHub Actions pour DevOps & Développeurs
 
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/stephrobert/github-actions-training/badge)](https://scorecard.dev/viewer/?uri=github.com/stephrobert/github-actions-training)
+[![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
+
 Bienvenue dans ce projet de **Travaux Pratiques GitHub Actions** !
 
 Ces TP vous guideront dans l'apprentissage pratique de **GitHub Actions** pour
