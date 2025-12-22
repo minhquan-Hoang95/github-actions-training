@@ -74,59 +74,57 @@ Chaque TP est placé dans un **sous-dossier** indépendant :
 /github-actions-training/
 │
 ├── tp-01-premier-workflow/        # Créer son premier workflow
-├── tp-02-syntaxe-yaml/            # Maîtriser la syntaxe YAML
-├── tp-03-events-triggers/         # Événements et déclencheurs
-├── tp-04-contexts-expressions/    # Contexts et expressions
-├── tp-05-variables-secrets/       # Variables et secrets
-├── tp-06-matrix-strategy/         # Stratégies de matrix
-├── tp-07-conditions-if/           # Conditions et contrôle de flux
-├── tp-08-cache-artifacts/         # Cache et artifacts
-├── tp-09-reusable-workflows/      # Workflows réutilisables
-├── tp-10-composite-actions/       # Actions composites
-├── tp-11-self-hosted-runners/     # Runners self-hosted
-├── tp-12-securite-permissions/    # Sécurité et permissions
-├── tp-13-oidc-cloud/              # OIDC et déploiements cloud
-├── tp-14-attestations-slsa/       # Attestations et provenance SLSA
-└── tp-15-projet-final/            # Projet de synthèse
+├── tp-02-events-triggers/         # Événements et déclencheurs
+├── tp-03-contexts-expressions/    # Contexts et expressions
+├── tp-04-variables-secrets/       # Variables et secrets
+├── tp-05-matrix-strategy/         # Stratégies de matrix
+├── tp-06-conditions-if/           # Conditions et contrôle de flux
+├── tp-07-cache-artifacts/         # Cache et artifacts
+├── tp-08-reusable-workflows/      # Workflows réutilisables
+├── tp-09-composite-actions/       # Actions composites
+├── tp-10-self-hosted-runners/     # Runners self-hosted
+├── tp-11-securite-permissions/    # Sécurité et permissions
+├── tp-12-oidc-cloud/              # OIDC et déploiements cloud
+├── tp-13-attestations-slsa/       # Attestations et provenance SLSA
+└── tp-14-projet-final/            # Projet de synthèse
 ```
 
 ## Parcours d'apprentissage
 
-### 🟢 Niveau Débutant (TP 01-05)
+### 🟢 Niveau Débutant (TP 01-04)
 
 Objectif : comprendre les bases de GitHub Actions
 
 | TP | Sujet | Durée estimée |
 |----|-------|---------------|
 | 01 | Premier workflow | 30 min |
-| 02 | Syntaxe YAML | 45 min |
-| 03 | Events et triggers | 45 min |
-| 04 | Contexts et expressions | 1h |
-| 05 | Variables et secrets | 45 min |
+| 02 | Events et triggers | 45 min |
+| 03 | Contexts et expressions | 1h |
+| 04 | Variables et secrets | 45 min |
 
-### 🟡 Niveau Intermédiaire (TP 06-10)
+### 🟡 Niveau Intermédiaire (TP 05-09)
 
 Objectif : maîtriser les patterns avancés
 
 | TP | Sujet | Durée estimée |
 |----|-------|---------------|
-| 06 | Matrix strategy | 1h |
-| 07 | Conditions et if | 45 min |
-| 08 | Cache et artifacts | 1h |
-| 09 | Reusable workflows | 1h30 |
-| 10 | Composite actions | 1h |
+| 05 | Matrix strategy | 1h |
+| 06 | Conditions et if | 45 min |
+| 07 | Cache et artifacts | 1h |
+| 08 | Reusable workflows | 1h30 |
+| 09 | Composite actions | 1h |
 
-### 🔴 Niveau Avancé (TP 11-15)
+### 🔴 Niveau Avancé (TP 10-14)
 
 Objectif : sécuriser et industrialiser
 
 | TP | Sujet | Durée estimée |
 |----|-------|---------------|
-| 11 | Self-hosted runners | 1h30 |
-| 12 | Sécurité et permissions | 1h30 |
-| 13 | OIDC et cloud | 1h30 |
-| 14 | Attestations et SLSA | 2h |
-| 15 | Projet final | 3h |
+| 10 | Self-hosted runners | 1h30 |
+| 11 | Sécurité et permissions | 1h30 |
+| 12 | OIDC et cloud | 1h30 |
+| 13 | Attestations et SLSA | 2h |
+| 14 | Projet final | 3h |
 
 ## Validation des exercices
 
