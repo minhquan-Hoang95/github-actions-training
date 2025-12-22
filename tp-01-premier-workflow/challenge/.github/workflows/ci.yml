@@ -9,26 +9,13 @@
 
 name: CI
 
-# TODO: Configurer les déclencheurs
-# Indice: on: push (branches), pull_request
 on:
-  # À compléter...
+  push:
+    branches: [main]
+  pull_request:
+
+# Permissions minimales (bonne pratique sécurité)
+permissions:
+  contents: read
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      # TODO: Étape 1 - Checkout du code
-      # Indice: uses: actions/checkout@...
-
-      # TODO: Étape 2 - Installer Python
-      # Indice: uses: actions/setup-python@...
-      # N'oubliez pas with: python-version
-
-      # TODO: Étape 3 - Installer les dépendances
-      # Indice: run: pip install -r requirements.txt
-
-      # TODO: Étape 4 - Lancer les tests
-      # Indice: run: pytest
-

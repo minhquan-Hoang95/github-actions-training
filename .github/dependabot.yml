@@ -1,0 +1,34 @@
+# Configuration Dependabot
+# Maintient les actions et dépendances à jour automatiquement
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates
+
+version: 2
+updates:
+  # Mise à jour des GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    commit-message:
+      prefix: "ci(deps)"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    # Groupe les mises à jour d'actions ensemble
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # Mise à jour des dépendances pip (Python)
+  - package-ecosystem: "pip"
+    directory: "/tp-01-premier-workflow/challenge"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    commit-message:
+      prefix: "chore(deps)"
+    labels:
+      - "dependencies"
+      - "python"
