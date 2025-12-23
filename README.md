@@ -25,35 +25,20 @@ détaillées, mais très vite, vous serez plus autonome.
 - **act** pour tester les workflows localement
 - **actionlint** pour valider la syntaxe des workflows
 
-**Installation de GitHub CLI :**
-
-```bash
-# Debian/Ubuntu
-sudo apt install gh
-
-# macOS
-brew install gh
-
-# Windows
-winget install GitHub.cli
-```
-
-**Installation de act (tests locaux) :**
-
-```bash
-# Via curl
-curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
-
-# macOS
-brew install act
-```
+- [**Installation de Git**](https://blog.stephane-robert.info/docs/developper/version/git/)
+- [**Installation de Docker**](https://blog.stephane-robert.info/docs/conteneurs/moteurs-conteneurs/docker/)
+- [**Installation de GitHub CLI**](https://blog.stephane-robert.info/docs/pipeline-cicd/github/gh-cli/)
+- [**Installation de act**](https://blog.stephane-robert.info/docs/pipeline-cicd/github/act/)
+- [**Installation de actionlint**](https://blog.stephane-robert.info/docs/pipeline-cicd/github/actionlint/)
 
 **Vérifications rapides :**
 
 ```bash
+docker --version
 git --version
 gh --version
-act --version  # optionnel
+act --version
+actionlint --version
 ```
 
 ## Documentation obligatoire
@@ -143,6 +128,8 @@ Pour valider un challenge :
 ```bash
 cd tp-XX-xxx/challenge
 # Suivre les instructions du README.md
+...
+...
 # Puis exécuter les tests
 ./validate.sh
 ```
@@ -166,23 +153,6 @@ Cette section détaille les outils pour travailler efficacement sur vos workflow
 [actionlint](https://github.com/rhysd/actionlint) est un linter qui détecte les
 erreurs de syntaxe, les problèmes de sécurité et les mauvaises pratiques dans
 vos fichiers workflow.
-
-**Installation :**
-
-```bash
-# Linux (téléchargement direct)
-curl -sL https://github.com/rhysd/actionlint/releases/download/v1.7.7/actionlint_1.7.7_linux_amd64.tar.gz | tar xz -C /tmp
-sudo mv /tmp/actionlint /usr/local/bin/
-
-# Vérifier l'installation
-actionlint --version
-
-# macOS
-brew install actionlint
-
-# Windows (avec scoop)
-scoop install actionlint
-```
 
 **Utilisation :**
 
@@ -218,8 +188,6 @@ pour voir les erreurs directement dans l'éditeur.
 | Actions non épinglées | `uses: actions/checkout@v4` (recommande SHA) |
 | Permissions trop larges | `permissions: write-all` |
 | Shells non supportés | `shell: zsh` sur un runner ubuntu |
-
----
 
 ### Vérifier le code Python avant de créer le workflow
 
@@ -366,27 +334,13 @@ act -s MY_SECRET=value
 act --secret-file .secrets  # Fichier .secrets (à ajouter au .gitignore !)
 ```
 
-**Gestion des runners self-hosted :**
-
-Si votre workflow utilise `runs-on: self-hosted`, act ne peut pas l'exécuter
-directement. Mappez-le vers une image Docker :
-
-```bash
-# Mapper self-hosted vers ubuntu-latest
-act -P self-hosted=ghcr.io/catthehacker/ubuntu:act-latest
-
-# Mapper plusieurs runners
-act -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:act-latest \
-    -P self-hosted=ghcr.io/catthehacker/ubuntu:act-latest
-```
-
 **Fichier de configuration `.actrc` :**
 
 Créez un fichier `.actrc` à la racine du projet pour éviter de répéter les options :
 
 ```bash
 # .actrc
--P ubuntu-latest=ghcr.io/catthehacker/ubuntu:act-latest
+-P ubuntu-latest=ghcr.io/catthehacker/ubuntu:act-24.04
 -P ubuntu-24.04=ghcr.io/catthehacker/ubuntu:act-24.04
 --secret-file .secrets
 ```
@@ -419,12 +373,6 @@ sudo mv scorecard /usr/local/bin/
 **Utilisation :**
 
 ```bash
-# Analyser un repo GitHub
-scorecard --repo=github.com/stephrobert/github-actions-training
-
-# Afficher les détails de chaque check
-scorecard --repo=github.com/stephrobert/github-actions-training --show-details
-
 # Analyser le repo local (nécessite un remote GitHub)
 scorecard --local .
 ```
@@ -474,12 +422,6 @@ scorecard --local=./ --show-details
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [Workflow syntax reference](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
 - [Security hardening](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions)
-
-### Mon blog
-
-- [GitHub Actions](https://blog.stephane-robert.info/docs/pipeline-cicd/github/)
-- [Sécurité CI/CD](https://blog.stephane-robert.info/docs/pipeline-cicd/github/securite/)
-- [Supply Chain](https://blog.stephane-robert.info/docs/securiser/supply-chain/)
 
 ## Contribution
 

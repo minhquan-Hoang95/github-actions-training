@@ -62,36 +62,60 @@ def deep_search(obj, key: str, value: str = None) -> bool:
 
 def check_uses_action(workflow: dict, action_name: str) -> bool:
     """Vérifie si une action est utilisée dans le workflow."""
-    jobs = workflow.get("jobs", {})
+    jobs = workflow.get("jobs")
+    if not jobs or not isinstance(jobs, dict):
+        return False
     for job in jobs.values():
+        if not job or not isinstance(job, dict):
+            continue
         steps = job.get("steps", [])
+        if not steps:
+            continue
         for step in steps:
+            if not isinstance(step, dict):
+                continue
             uses = step.get("uses", "")
-            if action_name in uses:
+            if action_name in str(uses):
                 return True
     return False
 
 
 def check_run_command(workflow: dict, command: str) -> bool:
     """Vérifie si une commande run contient un texte donné."""
-    jobs = workflow.get("jobs", {})
+    jobs = workflow.get("jobs")
+    if not jobs or not isinstance(jobs, dict):
+        return False
     for job in jobs.values():
+        if not job or not isinstance(job, dict):
+            continue
         steps = job.get("steps", [])
+        if not steps:
+            continue
         for step in steps:
+            if not isinstance(step, dict):
+                continue
             run = step.get("run", "")
-            if command in run:
+            if command in str(run):
                 return True
     return False
 
 
 def check_python_version(workflow: dict, version: str) -> bool:
     """Vérifie si une version Python spécifique est configurée."""
-    jobs = workflow.get("jobs", {})
+    jobs = workflow.get("jobs")
+    if not jobs or not isinstance(jobs, dict):
+        return False
     for job in jobs.values():
+        if not job or not isinstance(job, dict):
+            continue
         steps = job.get("steps", [])
+        if not steps:
+            continue
         for step in steps:
+            if not isinstance(step, dict):
+                continue
             with_block = step.get("with", {})
-            if with_block:
+            if with_block and isinstance(with_block, dict):
                 py_version = with_block.get("python-version", "")
                 if version in str(py_version):
                     return True
@@ -151,6 +175,15 @@ def main() -> int:
     except yaml.YAMLError as e:
         failed(f"Erreur de syntaxe YAML: {e}")
         return 1
+
+    # Test 2b : La section jobs existe
+    jobs = workflow.get("jobs")
+    if not jobs or not isinstance(jobs, dict):
+        failed("Section 'jobs' manquante ou invalide", "Ajoutez: jobs:\\n  nom-du-job:\\n    runs-on: ubuntu-latest")
+        failed_count += 1
+    else:
+        passed("Section 'jobs' présente")
+        passed_count += 1
 
     # Test 3 : Utilise actions/checkout
     if check_uses_action(workflow, "actions/checkout"):

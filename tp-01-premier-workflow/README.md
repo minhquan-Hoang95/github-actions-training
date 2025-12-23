@@ -25,11 +25,28 @@ Votre mission : **automatiser l'exécution des tests** pour qu'ils se lancent
 
 ## Pré-requis
 
+### Lectures recommandées
+
+Avant de commencer ce TP, il est fortement recommandé de lire les articles
+suivants pour bien comprendre les concepts de base :
+
+- [Introduction à GitHub Actions](https://blog.stephane-robert.info/docs/pipeline-cicd/github/) : concepts clés
+- [Premiers pas avec les workflows](https://blog.stephane-robert.info/docs/pipeline-cicd/github/workflows/) : structure d'un workflow
+- [Debug des workflows](https://blog.stephane-robert.info/docs/pipeline-cicd/github/optimiser/debug/) : diagnostiquer les problèmes
+- [Sécurité GitHub Actions](https://blog.stephane-robert.info/docs/pipeline-cicd/github/securite/) : bonnes pratiques
+- [Pinning des actions GitHub](https://blog.stephane-robert.info/docs/pipeline-cicd/github/securite/pinning/) : éviter les risques liés aux actions tierces
+- [actionlint](https://blog.stephane-robert.info/docs/pipeline-cicd/github/actionlint/) : valider la syntaxe YAML
+- [act](https://blog.stephane-robert.info/docs/pipeline-cicd/github/act/) : exécuter les workflows en local
+- [GitHub CLI (gh)](https://blog.stephane-robert.info/docs/pipeline-cicd/github/gh-cli/) : gérer les workflows depuis le terminal
+
 ### Outils installés
 
 Vérifiez que ces outils sont disponibles sur votre machine :
 
 ```bash
+# Docker
+docker --version
+
 # Git
 git --version
 
@@ -94,7 +111,7 @@ jobs:
   # Identifiant du job (pas d'espaces)
   build:
     # Machine virtuelle utilisée
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     # 4. Les étapes du job
     steps:
@@ -128,6 +145,12 @@ jobs:
 ### Exercice 1 : Créer la structure
 
 Créons l'arborescence nécessaire pour notre premier workflow.
+
+Commencez par vous placer à la racine de votre projet :
+
+```bash
+cd tp-01-premier-workflow
+```
 
 **Étape 1** : Créez le répertoire des workflows
 
@@ -168,7 +191,7 @@ jobs:
   # Job nommé "hello"
   hello:
     # Exécuter sur la dernière version d'Ubuntu
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     # Liste des étapes
     steps:
@@ -196,8 +219,8 @@ act push -j hello
 
 Résultat attendu :
 
-```
-[CI/hello] 🚀 Start image=catthehacker/ubuntu:act-latest
+```bash
+[CI/hello] 🚀 Start image=catthehacker/ubuntu:act-24.04
 [CI/hello]   🐳 docker pull ...
 [CI/hello] ⭐ Run Main Dire bonjour
 [CI/hello]   | Bonjour depuis GitHub Actions !
@@ -207,7 +230,8 @@ Résultat attendu :
 ### Exercice 3 : Ajouter le checkout du code
 
 Un workflow de CI doit d'abord **récupérer le code** du repository. C'est le
-rôle de l'action `actions/checkout`.
+rôle de l'action `actions/checkout`. Pour cela allez sur le [**marketplace
+GitHub**](https://github.com/marketplace).
 
 Modifiez votre workflow :
 
@@ -219,12 +243,12 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       # Étape 1 : Récupérer le code source
       - name: Checkout du code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.1
 
       # Étape 2 : Afficher les fichiers
       - name: Lister les fichiers
@@ -244,6 +268,12 @@ act push -j test
 ```
 
 Vous devriez voir la liste des fichiers de votre projet.
+
+On va piner le sha pour plus de sécurité dans le prochain TP.
+
+```bash
+npx pin-github-action .github/workflows/ci.yml
+```
 
 ### Exercice 4 : Configurer Node.js et exécuter des tests
 
@@ -277,7 +307,7 @@ jobs:
     steps:
       # Récupérer le code
       - name: Checkout du code
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       # Installer Node.js
       - name: Installer Node.js
@@ -299,6 +329,9 @@ jobs:
 **Validation** :
 
 ```bash
+# On pine les actions
+npx pin-github-action .github/workflows/ci.yml
+
 # Vérifier la syntaxe
 actionlint .github/workflows/ci.yml
 
@@ -322,14 +355,14 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout du code
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Installer Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
           node-version: '20'
 
@@ -365,14 +398,14 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout du code
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Installer Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
           node-version: '20'
 
@@ -381,7 +414,7 @@ jobs:
 ```
 
 Avec `workflow_dispatch`, un bouton "Run workflow" apparaîtra dans l'onglet
-Actions de votre repository.
+Actions de votre depot sur GitHub.
 
 **Test local** :
 
@@ -415,14 +448,14 @@ permissions:
 jobs:
   test:
     name: Tests unitaires
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout du code
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Installer Node.js 20
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
           node-version: '20'
 
@@ -457,21 +490,6 @@ Vous avez compris les bases. Maintenant, c'est à vous de jouer !
 Rendez-vous dans le dossier [`challenge/`](./challenge/) pour l'exercice
 autonome.
 
-## Pour aller plus loin
-
-### Documentation officielle
-
-- [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
-- [Events that trigger workflows](https://docs.github.com/en/actions/reference/events-that-trigger-workflows)
-- [actions/checkout](https://github.com/actions/checkout)
-- [actions/setup-node](https://github.com/actions/setup-node)
-
-### Sur le blog
-
-- [GitHub CLI (gh)](https://blog.stephane-robert.info/docs/pipeline-cicd/github/gh-cli/) : gérer les workflows depuis le terminal
-- [Debug des workflows](https://blog.stephane-robert.info/docs/pipeline-cicd/github/optimiser/debug/) : diagnostiquer les problèmes
-- [Sécurité GitHub Actions](https://blog.stephane-robert.info/docs/pipeline-cicd/github/securite/) : bonnes pratiques
-
 ## Récapitulatif
 
 | Concept | Ce qu'il faut retenir |
@@ -482,3 +500,13 @@ autonome.
 | **Actions** | `uses: owner/action@version` |
 | **Commandes** | `run: commande shell` |
 | **Validation** | `actionlint` puis `act` |
+
+Et on pine toujours les actions avec :
+
+On pine toujours les actions après chaque modification :
+
+```bash
+npx pin-github-action .github/workflows/ci.yml
+```
+
+## Félicitations !

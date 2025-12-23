@@ -29,7 +29,7 @@ tp-XX-nom-du-tp/
 │   ├── README.md       # Instructions du challenge
 │   ├── .github/
 │   │   └── workflows/  # Workflows à compléter
-│   └── validate.sh     # Script de validation
+│   └── validate.py     # Script de validation
 └── solution/           # Solution (optionnel, pour les formateurs)
 ```
 
