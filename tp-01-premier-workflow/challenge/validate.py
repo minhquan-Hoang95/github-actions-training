@@ -124,7 +124,9 @@ def check_python_version(workflow: dict, version: str) -> bool:
 
 def check_trigger(workflow: dict, trigger: str) -> bool:
     """Vérifie si un déclencheur est configuré."""
-    on_block = workflow.get("on", {}) or workflow.get(True, {})  # 'on' peut être interprété comme True en YAML
+    on_block = workflow.get("on", {}) or workflow.get(
+        True, {}
+    )  # 'on' peut être interprété comme True en YAML
     if isinstance(on_block, dict):
         return trigger in on_block
     if isinstance(on_block, list):
@@ -179,7 +181,10 @@ def main() -> int:
     # Test 2b : La section jobs existe
     jobs = workflow.get("jobs")
     if not jobs or not isinstance(jobs, dict):
-        failed("Section 'jobs' manquante ou invalide", "Ajoutez: jobs:\\n  nom-du-job:\\n    runs-on: ubuntu-latest")
+        failed(
+            "Section 'jobs' manquante ou invalide",
+            "Ajoutez: jobs:\\n  nom-du-job:\\n    runs-on: ubuntu-latest",
+        )
         failed_count += 1
     else:
         passed("Section 'jobs' présente")
@@ -198,7 +203,9 @@ def main() -> int:
         passed("Utilise actions/setup-python")
         passed_count += 1
     else:
-        failed("actions/setup-python non trouvé", "Ajoutez: uses: actions/setup-python@v5")
+        failed(
+            "actions/setup-python non trouvé", "Ajoutez: uses: actions/setup-python@v5"
+        )
         failed_count += 1
 
     # Test 5 : Python 3.11 configuré
@@ -210,11 +217,16 @@ def main() -> int:
         failed_count += 1
 
     # Test 6 : Installation des dépendances
-    if check_run_command(workflow, "pip install") and check_run_command(workflow, "requirements"):
+    if check_run_command(workflow, "pip install") and check_run_command(
+        workflow, "requirements"
+    ):
         passed("Installation des dépendances")
         passed_count += 1
     else:
-        failed("Installation des dépendances non trouvée", "Ajoutez: run: pip install -r requirements.txt")
+        failed(
+            "Installation des dépendances non trouvée",
+            "Ajoutez: run: pip install -r requirements.txt",
+        )
         failed_count += 1
 
     # Test 7 : Exécution de pytest
