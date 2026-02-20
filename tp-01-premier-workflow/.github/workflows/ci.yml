@@ -15,14 +15,16 @@ jobs:
 
     # 4. Les étapes du job
     steps:
-      #Première étape : afficher un message
-      - name: Dire bonjour
-        run: echo "Hello World depuis GitHub Actions !"
-
-      #Deuxième étape : Checker le code source
+      # Étape 1: Vérifier le code
       - name: Checkout du code
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
-      #Troisième étape : Afficher la liste des fichiers
-      - name: Lister les fichiers
-        run: ls -la
+      # Étape 2: Installer les dépendances
+      - name: Install Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '20'
+
+      # Étape 3: Exécuter les tests
+      - name: Lacer le test
+        run: npm test
