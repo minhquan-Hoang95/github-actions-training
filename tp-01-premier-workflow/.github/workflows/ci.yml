@@ -4,6 +4,10 @@ name: CI
 # 2. Quand le workflow s'exécute
 on:
   push:
+    branches:
+      - main
+      - develop
+  workflow_dispatch: # Permet de déclencher manuellement le workflow depuis l'interface GitHub
     
 
 # 3. Les jobs (tâches) à exécuter
