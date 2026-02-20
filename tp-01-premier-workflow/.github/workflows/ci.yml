@@ -1,0 +1,28 @@
+# 1. Nom affiché dans l'interface GitHub
+name: CI
+
+# 2. Quand le workflow s'exécute
+on:
+  push:
+    
+
+# 3. Les jobs (tâches) à exécuter
+jobs:
+  # Identifiant du job (pas d'espaces)
+  test:
+  # Machine virtuelle utilisée
+    runs-on: ubuntu-latest
+
+    # 4. Les étapes du job
+    steps:
+      #Première étape : afficher un message
+      - name: Dire bonjour
+        run: echo "Hello World depuis GitHub Actions !"
+
+      #Deuxième étape : Checker le code source
+      - name: Checkout du code
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      #Troisième étape : Afficher la liste des fichiers
+      - name: Lister les fichiers
+        run: ls -la
